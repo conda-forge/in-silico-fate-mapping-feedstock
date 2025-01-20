@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/in-silico-fate-mapping-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/in-silico-fate-mapping-{{ version }}.tar.gz
   sha256: 57782845a88c05bed888d53dd2a2cd6dd940001e8c3745297c4a9dd8a8931a68
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   entry_points:
     - div = in_silico_fate_mapping.cli.divergence_cli:div
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - click
@@ -27,7 +27,7 @@ requirements:
     - napari
     - numpy
     - pandas
-    - python >=3.8
+    - python >={{ python_min }}
     - scikit-learn
     - qtpy
     - zarr
@@ -41,6 +41,7 @@ test:
   requires:
     - pip
     - pyqt
+    - python {{ python_min }}
 
 about:
   home: https://github.com/royerlab/in-silico-fate-mapping
